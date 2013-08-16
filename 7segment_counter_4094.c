@@ -46,6 +46,7 @@ void HC4094Pulse(void);
 void HC4094Latch(void);
 void HC4094Write(int);
 void HC4094Show(int);
+void delayms(int);
 
 int main(void) {
 
@@ -55,16 +56,104 @@ int main(void) {
 	
 	for(;;)
 	{
-		//Simple loop to cycle through all the numbers
+		//patterns
 		int i;
+		for(i=0;i<5;i++)
+		{
+			HC4094Write(TOP);
+			delayms(100);
+			HC4094Write(TOPRIGHT);
+			delayms(100);
+			HC4094Write(MIDDLE);
+			delayms(100);
+			HC4094Write(BOTTOMLEFT);
+			delayms(100);
+			HC4094Write(BOTTOM);
+			delayms(100);
+			HC4094Write(BOTTOMRIGHT);
+			delayms(100);
+			HC4094Write(MIDDLE);
+			delayms(100);
+			HC4094Write(TOPLEFT);
+			delayms(100);
+		}
+
+		for(i=0;i<5;i++)
+		{
+			HC4094Write(TOP);
+			delayms(100);
+			HC4094Write(TOPRIGHT);
+			delayms(100);
+			HC4094Write(BOTTOMRIGHT);
+			delayms(100);
+			HC4094Write(BOTTOM);
+			delayms(100);
+			HC4094Write(BOTTOMLEFT);
+			delayms(100);
+			HC4094Write(TOPLEFT);
+			delayms(100);
+		}
+
+		for(i=0;i<5;i++)
+		{
+			HC4094Write(TOP);
+			delayms(100);
+			HC4094Write(TOPLEFT);
+			delayms(100);
+			HC4094Write(MIDDLE);
+			delayms(100);
+			HC4094Write(BOTTOMRIGHT);
+			delayms(100);
+			HC4094Write(BOTTOM);
+			delayms(100);
+			HC4094Write(BOTTOMLEFT);
+			delayms(100);
+			HC4094Write(MIDDLE);
+			delayms(100);
+			HC4094Write(TOPRIGHT);
+			delayms(100);
+		}
+
+		for(i=0;i<8;i++)
+		{
+			HC4094Write(TOP);
+			delayms(100);
+			HC4094Write(MIDDLE);
+			delayms(100);
+			HC4094Write(BOTTOM);
+			delayms(100);
+			HC4094Write(MIDDLE);
+			delayms(100);
+		}
+
+		for(i=0;i<10;i++)
+		{
+			HC4094Write(TOPRIGHT & BOTTOMRIGHT);
+			delayms(100);
+			HC4094Write(TOPLEFT & BOTTOMLEFT);
+			delayms(100);
+
+		}
+
+		//show numbers
 		for(i=0;i<10;i++)
 		{
 			HC4094Show(i);
-			__delay_cycles(500000);
+			delayms(250);
 		}
+
 	}
 
 	return 0;
+}
+
+void delayms(int ms)
+{
+	int i;
+	for(i=0;i<ms;i++)
+	{
+		__delay_cycles(1000);
+	}
 }
 
 //Functions that were used to test the bits, and results
@@ -116,6 +205,7 @@ void HC4094Show(int number)
 		HC4094Write(ZERO);
 		break;
 	default:
+		HC4094Write(0xff);
 		break;
 	}
 }
